@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Store</title>
+</head>
+<body>
+<div class = "header">
+    <h1>Welecome to Ibar's Book Store; here you can find cheap Books !</h1>
+    <h3>We sale Python Book, English novel books , and history books . This website will help you to skip unnecessary Black Friday queues</h3>
+</div>
+<br>
+<div class = "top">
+    <div calss = 'books'>
+        <form method="post" action="/save">
+            <h1 class="python" >Python Books</h1>
+            <select id = "pythonBooks" name = "bookNames">
+                {% for book in pythonBookList %}
+                <option value="{{ book[0] }}">{{ book[1] }} $ {{ book[2] }}</option>
+                {%  endfor %}
+            </select>
+        <button class = "select" type = "submit">Add a python book into the Cart</button>
+
+        </form>
+
+    </div>
+</div>
+
+
+
+</body>
+</html>
