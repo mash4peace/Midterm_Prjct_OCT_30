@@ -25,6 +25,43 @@
 
     </div>
 </div>
+<br>
+<div class = "cart">
+    <h3>Selected Books</h3>
+<table>
+    {%  for book in cartItems %}
+    <tr>
+        <td>{{ book[0] }}</td>
+        <td>${{ book[1] }}</td>
+    <td>
+        <form method="post" action="/remove">
+            <input type="hidden" name = "removeBookItem" value={{ book[0]}}>
+            <button type="submit">Remove a Book</button>
+        </form>
+    </td>
+    </tr>
+    {% endfor %}
+</table>
+</div>
+<p>
+    Cost Total :</p>
+<div class="total">
+    <h6> Your total is </h6>
+    ${{ total }}
+</div>
+<div>
+<form method="POST" action="/delete">
+    <button class = "button clear" type="submit">Clear Cart</button>
+</form>
+
+</div>
+<form method="post" action="/checkout">
+    <button class = "button checkout" type="submit"> Checkout</button>
+
+</form>
+<dv>
+
+</dv>
 
 
 
