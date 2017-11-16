@@ -39,7 +39,62 @@ def removeCartItem(book):
     conn = sqlite3.connect("booksdb.db")
     c = conn.cursor()
     c.execute("DELETE FROM cart WHERE book_id = ?", (book,))
+
     conn.commit()
     conn.close()
 
 
+def insertUser(username, password):
+    conn = sqlite3.connect('booksdb.db')
+    cur = conn.cursor()
+    cur.execute('''INSERT INTO users(username, password ) VALUES (?,?)''', (username, password))
+    conn.commit()
+    conn.close()
+
+def retreiveUsers():
+    con = sqlite3.connect('booksdb.db')
+    cur = con.cursor()
+    cur.execute('''SELECT username, password FROM users''')
+    users= cur.fetchall()
+    con.close()
+    return users
+
+
+def userExists(uname):
+    username= uname
+    conn = sqlite3.connect('booksdb.db')
+    c = conn.cursor()
+    c.execute('''SELECT username FROM users WHERE username = ?''', (username,))
+    data = c.fetchall()
+    if len(data) == 0:
+        return False
+    else:
+        print(username + "found in the database!")
+        conn.close()
+        return True
+
+
+
+
+def getPassword(uname):
+    uname = uname
+    con = sqlite3.connect('booksdb.db')
+    c = con.cursor()
+    c.execute('''SELECT password FROM users WHERE username = ?''', (uname,))
+    data = c.fetchall()
+    d = data[0]
+    con.close()
+    return d[0]
+
+
+def cartPriceTotal():
+    conn = sqlite3.connect("booksdb.db")
+    c = conn.cursor()
+    c.execute('''SELECT cost from books INNER JOIN cart on cart.book_id = books.id''')
+    costs = c.fetchall()
+    totalcost = 0
+    for cost in costs:
+        cost= (cost[0])
+        totalcost += cost
+
+    return totalcost
